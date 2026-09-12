@@ -12,8 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import { brandGradient } from "@/theme/theme";
+import LogoMark from "@/components/layout/LogoMark";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -41,19 +40,7 @@ export default function Footer() {
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 3 }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1.5 }}>
-              <Box
-                sx={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: "8px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: brandGradient,
-                }}
-              >
-                <PhotoCameraIcon fontSize="small" sx={{ color: "#fff" }} />
-              </Box>
+              <LogoMark size={32} />
               <Typography variant="h6" sx={{ fontWeight: 800, color: "#fff" }}>
                 InfluConnect
               </Typography>

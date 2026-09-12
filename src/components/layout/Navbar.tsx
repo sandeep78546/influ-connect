@@ -16,8 +16,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { brandGradient } from "@/theme/theme";
+import LogoMark from "@/components/layout/LogoMark";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -30,8 +30,9 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   return (
+    <>
     <AppBar
-      position="sticky"
+      position="fixed"
       color="inherit"
       elevation={0}
       sx={{ borderBottom: "1px solid", borderColor: "divider" }}
@@ -48,20 +49,7 @@ export default function Navbar() {
             mr: 4,
           }}
         >
-          <Box
-            sx={{
-              width: 36,
-              height: 36,
-              borderRadius: "10px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: brandGradient,
-              color: "#fff",
-            }}
-          >
-            <PhotoCameraIcon fontSize="small" />
-          </Box>
+          <LogoMark size={36} />
           <Typography variant="h6" component="span" sx={{ fontWeight: 800, color: "text.primary" }}>
             Influ
             <Box
@@ -144,5 +132,7 @@ export default function Navbar() {
         </Box>
       </Drawer>
     </AppBar>
+    <Toolbar sx={{ maxWidth: 1280, width: "100%", mx: "auto", px: { xs: 2, md: 3 } }} />
+    </>
   );
 }
