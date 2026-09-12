@@ -35,6 +35,10 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
           </Typography>
         </Stack>
 
+        <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
+          {campaign.title}
+        </Typography>
+
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flexGrow: 1 }}>
           {campaign.description}
         </Typography>
@@ -42,8 +46,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
         <Chip label={campaign.category} size="small" sx={{ mb: 1, alignSelf: "flex-start" }} />
 
         <Typography variant="body2" sx={{ fontWeight: 600, mb: 2 }}>
-          Budget: ₹{campaign.budgetMin.toLocaleString("en-IN")} – ₹
-          {campaign.budgetMax.toLocaleString("en-IN")}
+          Budget: {campaign.displayBudget}
         </Typography>
 
         <Button
