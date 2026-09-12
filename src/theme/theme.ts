@@ -3,6 +3,8 @@ import { createTheme } from "@mui/material/styles";
 export const brandGradient = "linear-gradient(90deg, #EC4899 0%, #A855F7 100%)";
 export const heroBackground =
   "linear-gradient(135deg, #FDF2F8 0%, #F5F3FF 55%, #F5F3FF 100%)";
+export const heroDarkBackground =
+  "radial-gradient(120% 120% at 15% 10%, #2E1065 0%, #150B33 45%, #0B0718 100%)";
 
 const theme = createTheme({
   palette: {

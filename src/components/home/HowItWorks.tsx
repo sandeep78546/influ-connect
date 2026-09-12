@@ -54,7 +54,12 @@ function StepPanel({
 
       <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: { sm: "flex-start" } }}>
         {steps.map((step, index) => (
-          <Stack key={step.title} direction="row" spacing={2} sx={{ alignItems: "center", flex: 1 }}>
+          <Stack
+            key={step.title}
+            direction="row"
+            spacing={2}
+            sx={{ alignItems: "center", justifyContent: "center", flex: 1, width: "100%" }}
+          >
             <Stack spacing={1} sx={{ alignItems: "center", minWidth: 0 }}>
               <Avatar
                 sx={{
@@ -103,7 +108,7 @@ export default function HowItWorks() {
         </Stack>
 
         <Grid container spacing={4}>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <StepPanel
               title="For Brands"
               subtitle="Grow your brand with authentic voices."
@@ -112,7 +117,7 @@ export default function HowItWorks() {
               steps={brandSteps}
             />
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <StepPanel
               title="For Influencers"
               subtitle="Turn your passion into opportunities."
