@@ -6,67 +6,88 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import InputAdornment from "@mui/material/InputAdornment";
-import SearchIcon from "@mui/icons-material/Search";
 import InfluencerCard from "@/components/influencers/InfluencerCard";
+import PageHeader from "@/components/common/PageHeader";
+import SearchBar from "@/components/common/SearchBar";
+import FilterSelect from "@/components/common/FilterSelect";
 import { influencers } from "@/data/influencers";
+import { matchesInfluencerSearch, matchesFollowers, matchesLocation } from "@/utils/filters";
 
-const categories = ["All", ...Array.from(new Set(influencers.map((i) => i.category)))];
+const categoryOptions = [
+  { label: "All Categories", value: "All" },
+  ...Array.from(new Set(influencers.map((i) => i.category))).map((category) => ({
+    label: category,
+    value: category,
+  })),
+];
+
+const followerOptions = [
+  { label: "Any Followers", value: "0" },
+  { label: "10K+", value: "10000" },
+  { label: "50K+", value: "50000" },
+  { label: "100K+", value: "100000" },
+  { label: "500K+", value: "500000" },
+];
+
+const locationOptions = [
+  { label: "All Locations", value: "All" },
+  { label: "India", value: "India" },
+  { label: "Mumbai", value: "Mumbai" },
+  { label: "Delhi", value: "Delhi" },
+  { label: "Bangalore", value: "Bangalore" },
+  { label: "Indore", value: "Indore" },
+];
 
 export default function ExploreInfluencersPage() {
   const [search, setSearch] = React.useState("");
   const [category, setCategory] = React.useState("All");
+  const [followers, setFollowers] = React.useState("0");
+  const [location, setLocation] = React.useState("All");
 
   const filtered = influencers.filter((influencer) => {
-    const matchesSearch = influencer.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = category === "All" || influencer.category === category;
-    return matchesSearch && matchesCategory;
+    return (
+      matchesInfluencerSearch(influencer, search) &&
+      matchesCategory &&
+      matchesFollowers(influencer, Number(followers)) &&
+      matchesLocation(influencer, location)
+    );
   });
 
   return (
     <Box sx={{ py: { xs: 6, md: 8 } }}>
       <Container maxWidth="lg">
-        <Stack spacing={1} sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 800 }}>
-            Explore Influencers
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Discover amazing creators across different niches and find the right fit for your brand.
-          </Typography>
-        </Stack>
+        <PageHeader
+          title="Explore Influencers"
+          subtitle="Discover creators who can help promote your brand."
+        />
 
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 4 }}>
-          <TextField
-            fullWidth
-            placeholder="Search influencers by name"
+        <Stack spacing={2} sx={{ mb: 4 }}>
+          <SearchBar
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon fontSize="small" />
-                  </InputAdornment>
-                ),
-              },
-            }}
+            onChange={setSearch}
+            placeholder="Search influencers..."
           />
-          <TextField
-            select
-            fullWidth
-            label="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            sx={{ maxWidth: { sm: 240 } }}
-          >
-            {categories.map((cat) => (
-              <MenuItem key={cat} value={cat}>
-                {cat}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+            <FilterSelect
+              label="Category"
+              value={category}
+              onChange={setCategory}
+              options={categoryOptions}
+            />
+            <FilterSelect
+              label="Followers"
+              value={followers}
+              onChange={setFollowers}
+              options={followerOptions}
+            />
+            <FilterSelect
+              label="Location"
+              value={location}
+              onChange={setLocation}
+              options={locationOptions}
+            />
+          </Stack>
         </Stack>
 
         {filtered.length === 0 ? (
@@ -84,3 +105,4 @@ export default function ExploreInfluencersPage() {
     </Box>
   );
 }
+
